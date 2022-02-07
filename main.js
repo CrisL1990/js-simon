@@ -8,6 +8,11 @@ mainContainer.innerHTML=numbersToRemember;
 
 //Aquisisce il titolo dall'HTML
 let firstTitle = document.getElementById('first-title');
+let secondTitle = document.getElementById('second-title');
+
+let guessed = document.getElementById('guessed');
+
+let endGame = document.getElementById('end-game');
 
 //Richiama la funzione hideNumbers dopo 30 secondi
 setTimeout(hideNumbers, 3000);
@@ -17,10 +22,18 @@ function hideNumbers(){
     mainContainer.classList.add('hide-numbers');
     firstTitle.classList.add('hide-numbers');
 
-    let userContainer = document.createElement("div")
-    userContainer.classList.add('show-prompt')
-    document.innerHTML = userContainer;
-    console.log(userContainer);
+    let playerContainer = document.getElementById('player-container');
+    
+    setTimeout(function(){
+        playerContainer.classList.remove('hide-numbers');
+        playerContainer.classList.add('show-numbers');
+
+        setTimeout(function(){
+            usernNumbers(numbersToRemember);
+        }, 500)
+        
+    }, 50);
+
     
     return;
 }
@@ -46,13 +59,43 @@ function randomNumber(min, max, numbersQuantity){
 //Crea la lista dei numeri inseriti dall'utente
 function usernNumbers(numbers){
     let myNumbers = [];
+    let numbersrequired = numbers.length;
 
-    numbers.forEach(element => {
-        element = prompt("Quali numeri erano presenti nella lista?: ")
-        myNumbers.push(element);
+    for(let i = 0; i < numbersrequired; i++){
+
+        n = parseInt(prompt("Quali numeri erano presenti nella lista?: "))
+
+        numbers.forEach(element => {
+            if(n == element){
+                myNumbers.push(n);
+            }
+    
         
-    });
-    return myNumbers
+        });
+
+        
+    };
+
+    guessed.classList.remove('hide-numbers');
+    guessed.classList.add('show-numbers');
+    secondTitle.classList.add('hide-numbers');
+
+    if(myNumbers.length != 0){
+        guessed.innerHTML = myNumbers;
+        if(myNumbers.length == 1){
+            endGame.innerHTML = `Hai indovinato ${myNumbers.length} numero`;
+        }
+        else{
+            endGame.innerHTML = `Hai indovinato ${myNumbers.length} numeri`;
+        }
+        
+    }
+    else{
+        guessed.innerHTML = "LOOSER!!!"
+        endGame.innerHTML = `Hai indovinato 0 numeri`
+    }
+    
+    return;
 }
 
 
