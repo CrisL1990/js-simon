@@ -12,13 +12,16 @@ let firstTitle = document.getElementById('first-title');
 //Richiama la funzione hideNumbers dopo 30 secondi
 setTimeout(hideNumbers, 3000);
 
-
-
-
 //Aggiunge la classe hide-numbers al container con i numeri da ricordare
 function hideNumbers(){
     mainContainer.classList.add('hide-numbers');
     firstTitle.classList.add('hide-numbers');
+
+    let userContainer = document.createElement("div")
+    userContainer.classList.add('show-prompt')
+    document.innerHTML = userContainer;
+    console.log(userContainer);
+    
     return;
 }
 
@@ -40,13 +43,13 @@ function randomNumber(min, max, numbersQuantity){
     return numbersList;
 }
 
+//Crea la lista dei numeri inseriti dall'utente
 function usernNumbers(numbers){
     let myNumbers = [];
-    let numberPrompt;
 
     numbers.forEach(element => {
-        numberPrompt = prompt("Quali numeri erano presenti nella lista?: ")
-        myNumbers.push(numberPrompt);
+        element = prompt("Quali numeri erano presenti nella lista?: ")
+        myNumbers.push(element);
         
     });
     return myNumbers
